@@ -22,7 +22,7 @@ export const App: React.FC = () => {
       )
       .then(response => {
         setMessage(response.data);
-        // sessionsActions();
+        sessionsActions();
       });
   };
 
@@ -36,13 +36,13 @@ export const App: React.FC = () => {
       .then(response => setSessions(response.data));
   };
 
-  // useEffect(() => {
-  //   sessionsActions();
-  //
-  //   setTimeout(() => {
-  //     sessionsActions();
-  //   }, 5000);
-  // }, []);
+  useEffect(() => {
+    sessionsActions();
+
+    setTimeout(() => {
+      sessionsActions();
+    }, 5000);
+  }, []);
 
   return (
     <div className="div-1">
@@ -77,7 +77,7 @@ export const App: React.FC = () => {
         )}
       </div>
 
-      <div className="div-2">
+      <div className="div-3">
         <div className="title">
           Sessions
         </div>
@@ -85,7 +85,7 @@ export const App: React.FC = () => {
           <ul>
             {sessions.map(session =>
               <li>
-                {session.name}
+                {session.id} – {session.name}
               </li>
             )}
           </ul>

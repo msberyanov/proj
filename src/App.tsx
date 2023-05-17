@@ -1,26 +1,36 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useCallback, useState } from 'react';
+import axios from 'axios';
 
-function App() {
+const apiGateway = "https://d5d5n7jhqpq0ije398ch.apigw.yandexcloud.net";
+
+export const App: React.FC = () => {
+  const [message, setMessage] = useState("");
+
+  const onClick = (path: string) => {
+    axios
+      .get(`${apiGateway}/${path}`,
+        {
+          withCredentials: true
+        }
+      )
+      .then(response => setMessage(response.data));
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <button onClick={() => onClick('login')}>
+        login
+      </button>
+      <button onClick={() => onClick('logout')}>
+        logout
+      </button>
+      <button onClick={() => onClick('sessions')}>
+        sessions
+      </button>
+
+      <div>
+        {message}
+      </div>
     </div>
   );
-}
-
-export default App;
+};
